@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useSocketNotification } from "@/hooks/useSocket";
 
 type User = {
   id: string;
@@ -22,8 +23,10 @@ export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
 
+  useSocketNotification();
+
   useEffect(() => {
-    fetchUsers(2, 5).then((data) => {
+    fetchUsers().then((data) => {
       setUsers(data.items);
       setLoading(false);
     });
